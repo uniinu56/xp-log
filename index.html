@@ -1,14 +1,105 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="style.css">
-
-    <meta charset="UTF-8">
-    <title>スプラXPアプリ</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <p>ここにアプリの内容を書きます</p>
-  </body>
-</html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>XPログ</title>
+</head>
 <script src="script.js"></script>
+<body>
+
+  <h1>XPログ入力</h1>
+
+  <form id="xp-form">
+
+    <!-- ルール -->
+    <div>
+      <label for="rule">ルール</label><br>
+      <select id="rule" required>
+        <option value="">選択してください</option>
+        <option value="area">エリア</option>
+        <option value="asari">アサリ</option>
+        <option value="yagura">ヤグラ</option>
+        <option value="hoko">ホコ</option>
+      </select>
+    </div>
+
+    <br>
+
+    <!-- 日付 -->
+    <div>
+      <label for="date">日付</label><br>
+      <input type="date" id="date" required>
+    </div>
+
+    <br>
+
+    <!-- 最高XP -->
+    <div>
+      <label for="max-xp">最高XP</label><br>
+      <input type="number" id="max-xp" required>
+    </div>
+
+    <br>
+
+    <!-- 最終XP -->
+    <div>
+      <label for="last-xp">最終XP</label><br>
+      <input type="number" id="last-xp" required>
+    </div>
+
+    <br>
+
+
+    <!-- ステージ1 -->
+    <div>
+      <label for="stage1">ステージ1</label><br>
+      <input list="stages" id="stage1" required>
+    </div>
+
+    <br>
+
+    <!-- ステージ2 -->
+    <div>
+      <label for="stage2">ステージ2</label><br>
+      <input list="stages" id="stage2" required>
+    </div>
+
+    <!-- ステージ候補 -->
+    <datalist id="stages">
+      <option value="ユノハナ大渓谷">
+      <option value="ゴンズイ地区">
+      <option value="ヤガラ市場">
+      <option value="マテガイ放水路">
+      <option value="ナメロウ金属">
+      <option value="マサバ海峡大橋">
+      <option value="キンメダイ美術館">
+      <option value="マヒマヒリゾート＆スパ">
+      <option value="海女美術大学">
+      <option value="チョウザメ造船">
+      <option value="ザトウマーケット">
+      <option value="スメーシーワールド">
+      <option value="クサヤ温泉">
+      <option value="ヒラメが丘団地">
+      <option value="ナンプラー遺跡">
+      <option value="マンタマリア号">
+      <option value="タラポートショッピングパーク">
+      <option value="コンブトラック">
+      <option value="タカアシ経済特区">
+      <option value="オヒョウ海運">
+      <option value="バイガイ亭">
+      <option value="ネギトロ炭鉱">
+      <option value="カジキ空港">
+      <option value="リュウグウターミナル">
+      <option value="デカライン高架下">
+    </datalist>
+
+    <br><br>
+
+    <!-- 保存ボタン -->
+    <button type="submit">記録する</button>
+
+  </form>
+
+</body>
+</html>
+
