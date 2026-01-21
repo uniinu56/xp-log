@@ -20,15 +20,17 @@ form.addEventListener("submit", function (e) {
 
   const rule = document.getElementById("rule").value;
   const date = document.getElementById("date").value;
-  const maxXp = Number(document.getElementById("max-xp").value);
+  const maxXpInput = document.getElementById("max-xp").value;
+  const maxXp = maxXpInput === "" ? null : Number(maxXpInput);
   const lastXp = Number(document.getElementById("last-xp").value);
   const stage1 = document.getElementById("stage1").value;
   const stage2 = document.getElementById("stage2").value;
 
-  if (stage1 === stage2) {
-    alert("同じステージは選べません");
-    return;
-  }
+  if (stage1 && stage2 && stage1 === stage2) {
+  alert("同じステージは選べません");
+  return;
+}
+
 
   const record = {
     id: crypto.randomUUID(),
@@ -72,13 +74,17 @@ function renderRecordList() {
     const displayDate = formatDate(record.date);
     const ruleLabel = ruleMap[record.rule] ?? record.rule;
 
-    tr.innerHTML = `
-      <td>${displayDate}</td>
-      <td>${count}</td>
-      <td>${ruleLabel}</td>
-      <td>${record.maxXp} → ${record.lastXp}</td>
-      <td>${record.stages.join(" / ")}</td>
-    `;
+    const stageText =
+  record.stages.filter(s => s).join(" / ") || "―";
+
+  tr.innerHTML = `
+  <td>${displayDate}</td>
+  <td>${count}</td>
+  <td>${ruleLabel}</td>
+  <td>${record.maxXp} → ${record.lastXp}</td>
+  <td>${stageText}</td>
+`;
+
 
     tbody.appendChild(tr);
   });
