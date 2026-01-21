@@ -43,3 +43,34 @@ form.addEventListener("submit", function (e) {
   // フォーム初期化
   form.reset();
 });
+function renderRecordList() {
+  const listEl = document.getElementById("record-list");
+  listEl.innerHTML = "";
+
+  const records = JSON.parse(localStorage.getItem("xp-records")) || [];
+
+  // 作成日時順（古い → 新しい）
+  records.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+  // 同日・同ルールの回数カウント用
+  const countMap = {};
+
+  records.forEach(record => {
+    const key = `${record.date}_${record.rule}`;
+    countMap[key] = (countMap[key] || 0) + 1;
+    const count = countMap[key];
+
+    const li = document.createElement("li");
+
+    li.textContent =
+      `${record.date} (${count}) ` +
+      `${record.rule} ` +
+      `${record.maxXp} → ${record.lastXp} ` +
+      `［${record.stages.join(" / ")}］`;
+
+    listEl.appendChild(li);
+  });
+}
+
+// 初回表示
+renderRecordList();
