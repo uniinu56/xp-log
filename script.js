@@ -52,10 +52,8 @@ function renderRecordList() {
 
   const records = JSON.parse(localStorage.getItem("xp-records")) || [];
 
-  // 作成日時順（古い → 新しい）
   records.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
-  // 同日・同ルールの回数カウント用
   const countMap = {};
 
   records.forEach(record => {
@@ -65,9 +63,12 @@ function renderRecordList() {
 
     const li = document.createElement("li");
 
+    const displayDate = formatDate(record.date);
+    const ruleLabel = ruleMap[record.rule] ?? record.rule;
+
     li.textContent =
-      `${record.date} (${count}) ` +
-      `${record.rule} ` +
+      `${displayDate} (${count}) ` +
+      `${ruleLabel} ` +
       `${record.maxXp} → ${record.lastXp} ` +
       `［${record.stages.join(" / ")}］`;
 
@@ -75,5 +76,18 @@ function renderRecordList() {
   });
 }
 
+
 // 初回表示
 renderRecordList();
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  return `${d.getMonth() + 1}/${d.getDate()}`;
+}
+
+const ruleMap = {
+  area: "エリア",
+  asari: "アサリ",
+  yagura: "ヤグラ",
+  hoko: "ホコ"
+};
