@@ -53,10 +53,11 @@ form.addEventListener("submit", function (e) {
 
 // ④ 一覧描画
 function renderRecordList() {
-  const listEl = document.getElementById("record-list");
-  listEl.innerHTML = "";
+  const tbody = document.getElementById("record-list");
+  tbody.innerHTML = "";
 
   const records = JSON.parse(localStorage.getItem("xp-records")) || [];
+
   records.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   const countMap = {};
@@ -64,18 +65,25 @@ function renderRecordList() {
   records.forEach(record => {
     const key = `${record.date}_${record.rule}`;
     countMap[key] = (countMap[key] || 0) + 1;
+    const count = countMap[key];
 
-    const li = document.createElement("li");
+    const tr = document.createElement("tr");
 
-    li.textContent =
-      `${formatDate(record.date)} (${countMap[key]}) ` +
-      `${ruleMap[record.rule]} ` +
-      `${record.maxXp} → ${record.lastXp} ` +
-      `［${record.stages.join(" / ")}］`;
+    const displayDate = formatDate(record.date);
+    const ruleLabel = ruleMap[record.rule] ?? record.rule;
 
-    listEl.appendChild(li);
+    tr.innerHTML = `
+      <td>${displayDate}</td>
+      <td>${count}</td>
+      <td>${ruleLabel}</td>
+      <td>${record.maxXp} → ${record.lastXp}</td>
+      <td>${record.stages.join(" / ")}</td>
+    `;
+
+    tbody.appendChild(tr);
   });
 }
+
 
 // ⑤ 初回表示（最後）
 renderRecordList();
