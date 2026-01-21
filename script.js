@@ -37,6 +37,9 @@ form.addEventListener("submit", function (e) {
   records.push(record);
   localStorage.setItem("xp-records", JSON.stringify(records));
 
+  // ★これを追加
+  renderRecordList();
+
   // 確認用
   alert("保存しました");
 
